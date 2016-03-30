@@ -1,68 +1,108 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<html>
 <head>
   <meta charset="utf-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  
+  
+  <meta name="description" content="Qiang&#39;s blog" />
+  
+
+  
+  
+  
+  
+  
+  
   <title>岁月微凉人安好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="NASM 学习笔记（一） NASM的环境搭建和简介标签（空格分隔）： 汇编语言 NASM 
+
+NASM简介NASM，全称 The Netwide Assembler,是一款基于x8086和x86_64的汇编器。它具有较强的可移植性和模块性，并且支持多种文件格式，包括Linux和&amp;apos;NetBSD/FreeBSD&amp;apos;,&amp;apos;a.out&amp;apos;,&amp;apos;ELF&amp;apos;,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="岁月微凉人安好">
+<meta property="og:url" content="http://qiangchen.tk/2016/03/29/nasm1/index.html">
+<meta property="og:site_name" content="岁月微凉人安好">
+<meta property="og:description" content="NASM 学习笔记（一） NASM的环境搭建和简介标签（空格分隔）： 汇编语言 NASM 
+
+NASM简介NASM，全称 The Netwide Assembler,是一款基于x8086和x86_64的汇编器。它具有较强的可移植性和模块性，并且支持多种文件格式，包括Linux和&amp;apos;NetBSD/FreeBSD&amp;apos;,&amp;apos;a.out&amp;apos;,&amp;apos;ELF&amp;apos;,">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/005L5iMGjw1f2d027cc76j30p404ata9.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/005L5iMGjw1f2d04xkfpsj30vk0kgwg6.jpg">
+<meta property="og:updated_time" content="2016-03-28T16:29:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="岁月微凉人安好">
+<meta name="twitter:description" content="NASM 学习笔记（一） NASM的环境搭建和简介标签（空格分隔）： 汇编语言 NASM 
+
+NASM简介NASM，全称 The Netwide Assembler,是一款基于x8086和x86_64的汇编器。它具有较强的可移植性和模块性，并且支持多种文件格式，包括Linux和&amp;apos;NetBSD/FreeBSD&amp;apos;,&amp;apos;a.out&amp;apos;,&amp;apos;ELF&amp;apos;,">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/005L5iMGjw1f2d027cc76j30p404ata9.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
   <link rel="stylesheet" href="/css/style.css">
-  <!--在这里倒入jquery 方便处理部分页面的jquery-->
-  <script src="http://lib.sinaapp.com/js/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
 </head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="岁月微凉人安好" rel="home">岁月微凉人安好</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Qiang的个人博客</a>
+        </h2>
+      
+    </hgroup>
 
-<body>
-	
-  <header class="site-header site-color" id="site-header-id">
-
-  <div class="container">
-      <h1><a href="/" title="岁月微凉人安好"><span class="octicon octicon-mark-github"></span> 岁月微凉人安好</a></h1>
-      <nav class="site-header-nav" role="navigation">
-        
-              
-              <a href="/"  class=" site-header-nav-item hvr-underline-from-center" title="Home">Home</a>
-        
-              
-              <a href="/subentry/Life/" target="target" class=" site-header-nav-item hvr-underline-from-center" title="Life">Life</a>
-        
-              
-              <a href="/open-source/"  class=" site-header-nav-item hvr-underline-from-center" title="Open-Source">Open-Source</a>
-        
-              
-              <a href="/blog/"  class=" site-header-nav-item hvr-underline-from-center" title="Blog">Blog</a>
-        
-              
-              <a href="/guestbook/"  class=" site-header-nav-item hvr-underline-from-center" title="Guestbook">Guestbook</a>
-        
-      </nav>
-  </div>
-</header>
-
-	
-    <section class="collection-head collection-head-scrolled geopattern" data-pattern-id="" >
-
-    <div class="container">
-        <div class="collection-title">
-            <h1 class="collection-header"></h1>
-            <div class="collection-info">
-                <span class="meta-info">
-                    
-                        <span class="octicon octicon-calendar"></span>
-                        <time datetime="2016-03-28T16:21:20.000Z" itemprop="datePublished">3月 29 2016</time>
-                    
-                </span>
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
             </div>
-        </div>
-    </div>
-</section>
-	
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-nasm1" class="post-nasm1 post type-post status-publish format-standard hentry">
+    <!---->
 
-    <section class="container content">
+      <header class="entry-header">
+        
+        <div class="comments-link">
+            
+            <a href="/2016/03/29/nasm1/#comments" class="leave-reply">Reply</a>
+            
+            <a href="javascript:void(0);" data-url="http://qiangchen.tk/2016/03/29/nasm1/" data-id="cimea42m300016tokomjdm6np" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
 
-    <div class="columns">
-        <div class="column three-fourths" >
-            <article class="article-content article-entry">
-                <h1 id="NASM-学习笔记（一）-NASM的环境搭建和简介"><a href="#NASM-学习笔记（一）-NASM的环境搭建和简介" class="headerlink" title="NASM 学习笔记（一） NASM的环境搭建和简介"></a>NASM 学习笔记（一） NASM的环境搭建和简介</h1><p>标签（空格分隔）： 汇编语言 NASM </p>
+    <div class="entry-content">
+      
+        <h1 id="NASM-学习笔记（一）-NASM的环境搭建和简介"><a href="#NASM-学习笔记（一）-NASM的环境搭建和简介" class="headerlink" title="NASM 学习笔记（一） NASM的环境搭建和简介"></a>NASM 学习笔记（一） NASM的环境搭建和简介</h1><p>标签（空格分隔）： 汇编语言 NASM </p>
 <hr>
 <h2 id="NASM简介"><a href="#NASM简介" class="headerlink" title="NASM简介"></a>NASM简介</h2><pre><code>NASM，全称 The Netwide Assembler,是一款基于x8086和x86_64的汇编器。它具有较强的可移植性和模块性，并且支持多种文件格式，包括Linux和&apos;NetBSD/FreeBSD&apos;,&apos;a.out&apos;,&apos;ELF&apos;,&apos;COFF&apos;,微软16位的&apos;OBJ&apos;和&apos;Win32&apos;能够在多种环境下运行的汇编语言。
 
@@ -216,109 +256,114 @@
 </ol>
 <p> Last edited in 2016/3/28</p>
 
-            </article>
-            
-                <div class="share">
-                    <!--开启分享-->
-<div class="share-component"></div>
+      
+    </div><!-- .entry-content -->
 
-<script src="/js/share.min.js"></script>
-                </div>    
-            
-            
-                <div class="comment">
-                    
-<div class="ds-thread" data-thread-key="nasm1" data-title="" data-url="http://qiangchen.tk/2016/03/29/nasm1/"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"qiangchen"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0]
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-</script>
-                </div>
-            
-        </div>
-        <div class="column one-fourth">
-            
-                <h3>Post Directory</h3>
+    <footer class="entry-meta">
+    <a href="/2016/03/29/nasm1/">
+    <time datetime="2016-03-28T16:21:20.000Z" class="entry-date">
+        3月 29 2016
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
 
-<div id="post-directory-module">
-	<section class="post-directory">
-		<p><strong class="toc-title">文章目录</strong></p>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NASM-学习笔记（一）-NASM的环境搭建和简介"><span class="toc-text">NASM 学习笔记（一） NASM的环境搭建和简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NASM简介"><span class="toc-text">NASM简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NASM环境搭建"><span class="toc-text">NASM环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写你的“Hello-NASM”"><span class="toc-text">编写你的“Hello NASM”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#x86和x86-64寄存器和NASM简单语法介绍"><span class="toc-text">x86和x86_64寄存器和NASM简单语法介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mov"><span class="toc-text">mov</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#push和pop-call和jmp"><span class="toc-text">push和pop  call和jmp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol></li></ol>
-	</section>
-</div>
-            
-        </div>
-       
-    </div>
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2016/03/28/hello-world/" rel="next">Hello World <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-nasm1" data-title="" data-url="http://qiangchen.tk/2016/03/29/nasm1/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'qiangchen'};
+    (function() {
+	  var ds = document.createElement('script');
+	  ds.type = 'text/javascript';ds.async = true;
+	  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	  ds.charset = 'UTF-8';
+	  (document.getElementsByTagName('head')[0]
+	   || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
 </section>
 
-<footer class="container">
-    <div class="site-footer" role="contentinfo">
-        <div class="copyright left mobile-block">
-                © 2016
-                <span title="yumemor">yumemor</span>
-                <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
-        </div>
 
-        <ul class="site-footer-links right mobile-hidden">
-            <li>
-                <a href="javascript:window.scrollTo(0,0)" >TOP</a>
-            </li>
-        </ul>
-
-        <a href="https://github.com/czqInNanjing/czqInNanjing.github.io" target="_blank" aria-label="view source code">
-            <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
-        </a>
-
-        <ul class="site-footer-links mobile-hidden">
-            
-             
-              
-              <li>
-                <a href="/"  title="Home">Home</a>
-              </li>
-            
-              
-              <li>
-                <a href="/subentry/Life/" target="target" title="Life">Life</a>
-              </li>
-            
-              
-              <li>
-                <a href="/open-source/"  title="Open-Source">Open-Source</a>
-              </li>
-            
-              
-              <li>
-                <a href="/blog/"  title="Blog">Blog</a>
-              </li>
-            
-              
-              <li>
-                <a href="/guestbook/"  title="Guestbook">Guestbook</a>
-              </li>
-            
-
-        </ul>
-
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
     </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/29/nasm1/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/28/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2016 Qiang
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
 </footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
-		
-		<script src="/js/typer.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 
-		<script src="/js/geopattern.js"></script>
 
-		<script src="/js/index.js"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
-		 <script src="/js/popular_repo.js"></script> 
 
-	</body>
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
 </html>
