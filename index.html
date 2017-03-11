@@ -79,6 +79,90 @@ ga('send', 'pageview');
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-Spring-Data-JPA" class="post-Spring-Data-JPA post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/03/08/Spring-Data-JPA/">Spring Data JPA Introduction And Implementation Analysis</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="/2017/03/08/Spring-Data-JPA/#comments" class="leave-reply">Reply</a>
+            
+            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2017/03/08/Spring-Data-JPA/" data-id="cj04z016b0001e0uwyskwv6fa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="What-is-Spring-Data-JPA"><a href="#What-is-Spring-Data-JPA" class="headerlink" title="What is Spring Data JPA?"></a>What is Spring Data JPA?</h2><p>Spring Data JPA is the abbrevation of Spring Data Java Persistance API<br>The goal of Spring Data repository abstraction is to significantly <strong>reduce the amount of boilerplate code</strong> required to implement data access layers for various persistence stores.</p>
+<h2 id="What-can-Spring-Data-JPA-do"><a href="#What-can-Spring-Data-JPA-do" class="headerlink" title="What can Spring Data JPA do?"></a>What can Spring Data JPA do?</h2><ul>
+<li>No any code needed for simple query, just extends these interface in your own interface and you can call them as if the implementations really exist</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CrudRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span> <span class="keyword">extends</span> <span class="title">Serializable</span>&gt; <span class="keyword">extends</span> <span class="title">Repository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; </span>&#123; </span><br><span class="line">	<span class="comment">//displace the persist and merge of EntityManager</span></span><br><span class="line">	&lt;S extends T&gt; <span class="function">S <span class="title">save</span><span class="params">(S entity)</span></span>; </span><br><span class="line">	<span class="function">T <span class="title">findOne</span><span class="params">(ID primaryKey)</span></span>; <span class="function">Iterable&lt;T&gt; <span class="title">findAll</span><span class="params">()</span></span>; </span><br><span class="line">	<span class="function">Long <span class="title">count</span><span class="params">()</span></span>; </span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(T entity)</span></span>; </span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">exists</span><span class="params">(ID primaryKey)</span></span>; <span class="comment">// … more functionality omitted.</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PagingAndSortingRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span> <span class="keyword">extends</span> <span class="title">Serializable</span>&gt; <span class="keyword">extends</span> <span class="title">CrudRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; </span>&#123;</span><br><span class="line"> 	<span class="function">Iterable&lt;T&gt; <span class="title">findAll</span><span class="params">(Sort sort)</span></span>; </span><br><span class="line"> 	<span class="function">Page&lt;T&gt; <span class="title">findAll</span><span class="params">(Pageable pageable)</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Only Method Declartion needed for simple query includes <a href="http://docs.spring.io/spring-data/jpa/docs/1.11.0.RELEASE/reference/html/#jpa.query-methods" target="_blank" rel="external">most of the SQL operations</a> on one table</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RoomsRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">RoomsEntity</span>, <span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">	<span class="comment">//when using mysql</span></span><br><span class="line">	<span class="comment">//equals: "SELECT * FROM Rooms WHERE hotelId = ? AND status = ? </span></span><br><span class="line">	<span class="comment">//LIMIT start, num each page"</span></span><br><span class="line">	Page&lt;RoomsEntity&gt; ﬁndByHotelIdAndStatus(<span class="keyword">int</span> hotelId, <span class="keyword">int</span> status, Pageable pageRequest); 	</span><br><span class="line">	List&lt;RoomsEntity&gt; ﬁndByHotelIdAndStatus(<span class="keyword">int</span> hotelId, <span class="keyword">int</span> status); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Easy to integrate the custom implementation</li>
+<li>Support using @Query to define the query directly</li>
+<li>Still it has other features that will help you reduce boilerplate code </li>
+</ul>
+<h2 id="How-can-Spring-Data-JPA-be-some-powerful"><a href="#How-can-Spring-Data-JPA-be-some-powerful" class="headerlink" title="How can Spring Data JPA be some powerful?"></a>How can Spring Data JPA be some powerful?</h2><p>Before we dig deeper in Spring Data JPA, let us first have a look at its location in a Spring Project.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Default implementation of the &#123;@link org.springframework.data.repository.CrudRepository&#125; interface. This will offer</span><br><span class="line"> * you a more sophisticated interface than the plain &#123;@link EntityManager&#125; .</span><br><span class="line"> * </span><br><span class="line"> * @author Oliver Gierke</span><br><span class="line"> * @author Eberhard Wolff</span><br><span class="line"> * @author Thomas Darimont</span><br><span class="line"> * @author Mark Paluch</span><br><span class="line"> * @param &lt;T&gt; the type of the entity to handle</span><br><span class="line"> * @param &lt;ID&gt; the type of the entity&apos;s identifier</span><br><span class="line"> */</span><br><span class="line">@Repository</span><br><span class="line">@Transactional(readOnly = true)</span><br><span class="line">public class SimpleJpaRepository&lt;T, ID extends Serializable&gt;</span><br><span class="line">		implements JpaRepository&lt;T, ID&gt;, JpaSpecificationExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">	private static final String ID_MUST_NOT_BE_NULL = &quot;The given id must not be null!&quot;;</span><br><span class="line"></span><br><span class="line">	private final JpaEntityInformation&lt;T, ?&gt; entityInformation;</span><br><span class="line">	private final EntityManager em;</span><br></pre></td></tr></table></figure>
+<p>From the class comment of SimpleJpaRepository, a defult implementation of JpaRepository, we can know that it is an encapsulation of interface EntityManger, aiming to proffer a more robust interface. Therefore, we can found that it has the field EntityManager.</p>
+<p>Here I want to introduce the interface EntityManger, it is an interface to interact with concrete persistant context. It has serveral implementations, inside it the most famous is Hibernate, other implementations includes Open JPA and Eclipse JPA. </p>
+<p>Now we know that Spring Data JPA is just the encapsulation of other ORMs in order to provide a more Spring-Style tool helping reduce redundent code.</p>
+<h2 id="The-Creation-of-Spring-Data-JPA-Repository-Bean"><a href="#The-Creation-of-Spring-Data-JPA-Repository-Bean" class="headerlink" title="The Creation of Spring Data JPA Repository Bean"></a>The Creation of Spring Data JPA Repository Bean</h2><p>The creation of a Spring Data JPA Repository Bean has the following procedures:</p>
+<ol>
+<li>Spring get the interface’s information, if there is a corresponding custom implementation, collect it together</li>
+<li>Call JpaRepositoryFactory’s getRepository() to build a bean</li>
+<li>The JpaRepository will map the function name to the query based on the specific map depending on the implementation of EntityManager like Hibernate.</li>
+<li>The factory create the methods’ implementations based on the queries</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// this method is in the JpaRepositoryFactory's parent class RepositoryFactorySupport</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getRepository</span><span class="params">(Class&lt;T&gt; repositoryInterface, Object customImplementation)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        RepositoryMetadata metadata = getRepositoryMetadata(repositoryInterface);</span><br><span class="line">        Class&lt;?&gt; customImplementationClass = <span class="keyword">null</span> == customImplementation ? <span class="keyword">null</span> : customImplementation.getClass();</span><br><span class="line">        RepositoryInformation information = getRepositoryInformation(metadata, customImplementationClass);</span><br><span class="line"></span><br><span class="line">        validate(information, customImplementation);</span><br><span class="line"></span><br><span class="line">        Object target = getTargetRepository(information);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Create proxy </span></span><br><span class="line">		ProxyFactory result = <span class="keyword">new</span> ProxyFactory(); </span><br><span class="line">		result.setTarget(target); </span><br><span class="line">		result.setInterfaces(<span class="keyword">new</span> Class[] &#123; repositoryInterface, Repository.class &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (RepositoryProxyPostProcessor processor : postProcessors) &#123;</span><br><span class="line">            processor.postProcess(result);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//Key Impl    </span></span><br><span class="line">		result.addAdvice(<span class="keyword">new</span> QueryExecutorMethodInterceptor(information, customImplementation, target));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (T) result.getProxy();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>QueryExecutorMethodInterceptor is a public subclass of Factory’s parent class, it has the most significant message for building a new bean including query map, customImpl, repo info and target(the bean to be built).</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* This &#123;@code MethodInterceptor&#125; intercepts calls to methods of the custom implementation and delegates the to it if</span><br><span class="line">* configured. Furthermore it resolves method calls to finders and triggers execution of them. You can rely on having</span><br><span class="line">* a custom repository implementation instance set if this returns true.</span><br><span class="line">* </span><br><span class="line">* @author Oliver Gierke</span><br><span class="line">*/</span><br><span class="line">public class QueryExecutorMethodInterceptor implements MethodInterceptor &#123;</span><br><span class="line">		//Key </span><br><span class="line">		private final Map&lt;Method, RepositoryQuery&gt; queries = new ConcurrentHashMap&lt;Method, RepositoryQuery&gt;(); 		</span><br><span class="line">		private final Object customImplementation;</span><br><span class="line">		private final RepositoryInformation repositoryInformation;</span><br><span class="line">		private final Object target;</span><br></pre></td></tr></table></figure>
+<p>In its constuctor we can find :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Method method : queryMethods) &#123;</span><br><span class="line">	<span class="comment">//call lookupStrategy to get the query, param 'method' is the method to be intercept, namedQueries is Spring JPA's map from method key word to SQL query</span></span><br><span class="line">	RepositoryQuery query = lookupStrategy.resolveQuery(method, repositoryInformation, namedQueries);</span><br><span class="line">	invokeListeners(query);</span><br><span class="line">	queries.put(method, query);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>LookupStrategy is implemented by its successor class </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> QueryLookupStrategy <span class="title">getQueryLookupStrategy</span><span class="params">(Key key)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//extractor converts the JPA Query to the specific Query based on the implementation of EntityManager</span></span><br><span class="line">   <span class="keyword">return</span> JpaQueryLookupStrategy.create(entityManager, key, extractor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>QueryExtrator is a interface somehow like EntityManager because it is implemented by concrete ORM including Hibernate.<br>Here Spring JPA has finished its duties, it simply gets the query from the ORM and successfully build a map from the method to the real SQL query.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Interface to hide different implementations to extract the original JPA query string from a &#123;<span class="doctag">@link</span> Query&#125;.</span><br><span class="line"> * </span><br><span class="line"> * <span class="doctag">@author</span> Oliver Gierke</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">QueryExtractor</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+<p>##Summary ##<br>Spring Data JPA is undoubtedly a great tool integrating with Spring Framework, it helps reduce boilerplate code significantly and are completely customizable.<br>It mainly encapsulates the specific implmentation of ORMs, together with utilizing Spring’s great auto injection feature, successfully make it much easier to interact with database.</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/03/08/Spring-Data-JPA/">
+    <time datetime="2017-03-08T03:16:16.000Z" class="entry-date">
+        3月 8 2017
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-elastic search" class="post-elastic search post type-post status-publish format-standard hentry">
     <!---->
 
@@ -96,7 +180,7 @@ ga('send', 'pageview');
             
             <a href="/2017/02/19/elastic search/#comments" class="leave-reply">Reply</a>
             
-            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2017/02/19/elastic search/" data-id="cizc7fs0y0001w3uwat331n26" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2017/02/19/elastic search/" data-id="cj04z016d0002e0uwaq4ivl9w" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -147,7 +231,7 @@ ga('send', 'pageview');
             
             <a href="/2016/04/01/nasm2/#comments" class="leave-reply">Reply</a>
             
-            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2016/04/01/nasm2/" data-id="cizc7fs090000w3uwla75i6et" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2016/04/01/nasm2/" data-id="cj04z01660000e0uwm2vc2poc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -191,7 +275,7 @@ ga('send', 'pageview');
             
             <a href="/2016/03/30/nasm1/#comments" class="leave-reply">Reply</a>
             
-            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2016/03/30/nasm1/" data-id="cizc7fs1g0004w3uw28kvuiq7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2016/03/30/nasm1/" data-id="cj04z016t000ae0uweqhh8adt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -389,7 +473,7 @@ ga('send', 'pageview');
             
             <a href="/2016/03/28/hello-world/#comments" class="leave-reply">Reply</a>
             
-            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2016/03/28/hello-world/" data-id="cizc7fs170002w3uwku8934pg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2016/03/28/hello-world/" data-id="cj04z016r0009e0uw7htgvzew" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -448,6 +532,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/2017/03/08/Spring-Data-JPA/">Spring Data JPA Introduction And Implementation Analysis</a>
+          </li>
+        
+          <li>
             <a href="/2017/02/19/elastic search/">Elastic Search Research Note</a>
           </li>
         
@@ -472,7 +560,7 @@ ga('send', 'pageview');
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticresearch/">Elasticresearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NASM/">NASM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticresearch/">Elasticresearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NASM/">NASM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </aside>
 
@@ -481,7 +569,7 @@ ga('send', 'pageview');
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/Elasticresearch/" style="font-size: 10px;">Elasticresearch</a> <a href="/tags/NASM/" style="font-size: 10px;">NASM</a> <a href="/tags/学习笔记/" style="font-size: 20px;">学习笔记</a>
+      <a href="/tags/Elasticresearch/" style="font-size: 10px;">Elasticresearch</a> <a href="/tags/NASM/" style="font-size: 10px;">NASM</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/学习笔记/" style="font-size: 20px;">学习笔记</a>
     </div>
   </aside>
 
