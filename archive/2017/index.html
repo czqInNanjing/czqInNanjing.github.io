@@ -79,6 +79,106 @@ ga('send', 'pageview');
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-algorithm/union" class="post-algorithm/union post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/04/12/algorithm/union/">UnionDataType----Algorithm Notes1</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="/2017/04/12/algorithm/union/#comments" class="leave-reply">Reply</a>
+            
+            <a href="javascript:void(0);" data-url="http://czqofnju.cn/2017/04/12/algorithm/union/" data-id="cj1ehdv4f0000nouw846bs7tv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="Union-Find"><a href="#Union-Find" class="headerlink" title="Union Find"></a>Union Find</h1><h2 id="Implementation-Of-Quick-Find"><a href="#Implementation-Of-Quick-Find" class="headerlink" title="Implementation Of Quick Find"></a>Implementation Of Quick Find</h2><ul>
+<li>Implementation<ul>
+<li>Union(p, q): change all entries whose id equals id[p] to id[q] </li>
+<li>Connected(p, q): judge if id[p]==id[q]</li>
+<li>find(p):return p</li>
+</ul>
+</li>
+<li>Too Slow !</li>
+</ul>
+<h2 id="Quick-Union"><a href="#Quick-Union" class="headerlink" title="Quick Union"></a>Quick Union</h2><ul>
+<li>Balance By linking root of smaller tree to root of larger tree</li>
+<li>lazy union, only union the root of two trees</li>
+</ul>
+<h2 id="Weighted-Qucik-Union-With-Path-Compression"><a href="#Weighted-Qucik-Union-With-Path-Compression" class="headerlink" title="Weighted Qucik Union With Path Compression"></a>Weighted Qucik Union With Path Compression</h2><ul>
+<li>Quick union too slow when the tree grow too deep</li>
+<li>keep track of each tree, use another array  to store the depth of each tree</li>
+<li>Compress path when finding the root of a node</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">root</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (i != id[i]) &#123;</span><br><span class="line"></span><br><span class="line">    id[i] = id[id[i]]; <span class="comment">//only one extra line of code !</span></span><br><span class="line"></span><br><span class="line">    i = id[i];</span><br><span class="line"></span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">return</span> i;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">algorithm</th>
+<th style="text-align:center">initialize</th>
+<th style="text-align:center">union</th>
+<th style="text-align:center">find</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">quick-find</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">qiick-union</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">N+</td>
+<td style="text-align:center">N</td>
+</tr>
+<tr>
+<td style="text-align:center">weightedQuickUnion</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">lg N</td>
+<td style="text-align:center">lg N</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>In fact, the speed of weightedQucikUnion is almost linear in actual usage!</li>
+<li>Source code can be found <a href="https://github.com/czqInNanjing/SmallProject/tree/master/Java/AlgorithmExercise/src/union" target="_blank" rel="external">here</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/04/12/algorithm/union/">
+    <time datetime="2017-04-12T04:26:59.000Z" class="entry-date">
+        4月 12 2017
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Design-Pattern" class="post-Design-Pattern post type-post status-publish format-standard hentry">
     <!---->
 
@@ -313,6 +413,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/2017/04/12/algorithm/union/">UnionDataType----Algorithm Notes1</a>
+          </li>
+        
+          <li>
             <a href="/2017/03/22/Design-Pattern/">Design_Pattern</a>
           </li>
         
@@ -328,10 +432,6 @@ ga('send', 'pageview');
             <a href="/2016/04/01/nasm2/">(no title)</a>
           </li>
         
-          <li>
-            <a href="/2016/03/30/nasm1/">NASM 学习笔记（一） NASM的环境搭建和简介</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -341,7 +441,7 @@ ga('send', 'pageview');
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticresearch/">Elasticresearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NASM/">NASM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticresearch/">Elasticresearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NASM/">NASM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </aside>
 
@@ -350,7 +450,7 @@ ga('send', 'pageview');
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/Elasticresearch/" style="font-size: 10px;">Elasticresearch</a> <a href="/tags/NASM/" style="font-size: 10px;">NASM</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/学习笔记/" style="font-size: 20px;">学习笔记</a>
+      <a href="/tags/Algorithm/" style="font-size: 10px;">Algorithm</a> <a href="/tags/Elasticresearch/" style="font-size: 10px;">Elasticresearch</a> <a href="/tags/NASM/" style="font-size: 10px;">NASM</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/学习笔记/" style="font-size: 20px;">学习笔记</a>
     </div>
   </aside>
 
